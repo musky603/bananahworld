@@ -1,0 +1,56 @@
+# This is a basic workflow to build and test a scientific calculator project
+
+name: Calculator CI
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the "main" branch
+  push:
+    branches: [ main, master ] # Adjust branch names if needed
+  pull_request:
+    branches: [ main, master ] # Adjust branch names if needed
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This job "build" builds and tests the project
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # Set up Python (replace with your language/environment setup if not Python)
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          # Specify the Python version you need
+          python-version: '3.x'
+          # Optional: Cache pip dependencies
+          cache: 'pip'
+
+      # Install dependencies (replace with your dependency installation command)
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt # Assumes you have a requirements.txt file
+
+      # Build the project (uncomment and replace if a build step is required)
+      # - name: Build project
+      #   run: |
+      #     make build # Example build command
+
+      # Run tests (replace with your test execution command)
+      - name: Run tests
+        run: |
+          # Example using pytest; replace with your actual test command
+          pip install pytest
+          pytest # Or 'python -m unittest discover' or your specific test runner command
+
+      # You can add more steps here, e.g., linting, code analysis, etc.
